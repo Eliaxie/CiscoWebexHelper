@@ -19,9 +19,9 @@ This extension add some event to your CiscoWebex video (Polimi)\
 
 ### FireFox
 
-#### Firefox Store
- [here](https://addons.mozilla.org/en-US/firefox/addon/ciscowebex-helper/)
+#### Firefox Store:
+ [https://addons.mozilla.org/en-US/firefox/addon/ciscowebex-helper/](https://addons.mozilla.org/en-US/firefox/addon/ciscowebex-helper/)
 
-##### Chrome Store
- [here](https://chrome.google.com/webstore/detail/ciscowebex-helper/dncldolpngigodjmkklknhahjafjoofn/)
+##### Chrome Store:
+ [https://chrome.google.com/webstore/detail/ciscowebex-helper/dncldolpngigodjmkklknhahjafjoofn/](https://chrome.google.com/webstore/detail/ciscowebex-helper/dncldolpngigodjmkklknhahjafjoofn/)
 
