@@ -4,7 +4,7 @@
 
 # CiscoWebexHelper
 
-This extension add some event to your CiscoWebex video (Polimi)\
+This extension add some event to your CiscoWebex video (Polimi) and Microsoft Sharepoint
 
 ### List of events
 
