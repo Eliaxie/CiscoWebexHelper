@@ -87,22 +87,7 @@ async function injectHelper() {
                 myVideoHelper.playbackRate = myVideoHelper.playbackRate - 0.1;
                 console.log(myVideoHelper.playbackRate);
                 break;
-            case " ":
-                playOrPauseElem = document.getElementById("playOrPause")
-                if (myVideoHelper.paused) {
-                    playOrPauseElem.setAttribute('title', 'Pause');
-                    playOrPauseElem.setAttribute('aria-label', 'Pause');
-                    playOrPauseElem.className = 'icon-player-pause';
-                    myVideoHelper.play()
-
-                } else {
-                    playOrPauseElem.setAttribute('title', 'Play');
-                    playOrPauseElem.setAttribute('aria-label', 'Play');
-                    playOrPauseElem.className = 'icon-player-play';
-                    myVideoHelper.pause()
-                }
-                break;
-            }
+              }
         }
     });
 
