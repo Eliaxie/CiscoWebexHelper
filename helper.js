@@ -81,16 +81,12 @@ async function injectHelper() {
                 // Up pressed
                 myVideoHelper.playbackRate = myVideoHelper.playbackRate + 0.1;
                 console.log(myVideoHelper.playbackRate)
-                document.getElementsByClassName("speedValue")[0].innerHTML = round(myVideoHelper.playbackRate, 1) + "x";
                 break;
             case "ArrowDown":
                 // Down pressed
                 myVideoHelper.playbackRate = myVideoHelper.playbackRate - 0.1;
                 console.log(myVideoHelper.playbackRate);
-                document.getElementsByClassName("speedValue")[0].innerHTML = round(myVideoHelper.playbackRate, 1) + "x";
-
                 break;
-
             case " ":
                 playOrPauseElem = document.getElementById("playOrPause")
                 if (myVideoHelper.paused) {
