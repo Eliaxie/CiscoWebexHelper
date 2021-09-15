@@ -15,11 +15,11 @@ This extension add some event to your CiscoWebex video (Polimi)\
 * ⬇️ : video speed - 0.1
 * m  : mute/unmute
 
-### Install
+## Install
 
-#### FireFox
+### FireFox
 
-##### Firefox Store
+#### Firefox Store
  [here](https://addons.mozilla.org/en-US/firefox/addon/ciscowebex-helper/)
 
 ##### Chrome Store
