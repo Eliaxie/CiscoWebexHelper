@@ -1,4 +1,5 @@
 var debug = false;
+var platform = 0;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -22,6 +23,12 @@ async function injectHelper() {
         console.log("Try to get the video attemp ", i)
         await sleep(2000)
         myVideoHelper = document.getElementById("screen_html5_api")
+        if(myVideoHelper == null) {
+          try {
+            myVideoHelper = document.getElementsByClassName("od-VideoCanvas-video")[0]; // try the new sharepoint player
+            platform = 1;
+          } catch (ignore) {}
+        }
         i++;
     }
     if (myVideoHelper == null) {
@@ -33,30 +40,73 @@ async function injectHelper() {
     document.addEventListener("keydown", function (event) {
         event.preventDefault();
         const key = event.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
-        switch (key) { // change to event.key to key to use the above variable
+        if(platform == 0){ //old player
+          switch (key) { // change to event.key to key to use the above variable
+              case "ArrowLeft":
+                  // Left pressed
+                  updateSteps("SX");
+                  break;
+              case "ArrowRight":
+                  // Right pressed
+                  updateSteps("DX");
+                  break;
+              case "ArrowUp":
+                  // Up pressed
+                  updateSpeed("FASTER");
+                  break;
+              case "ArrowDown":
+                  // Down pressed
+                  updateSpeed("SLOWER");
+                  break;
+              case "m":
+                  // Down pressed
+                  muteAndUnmute();
+                  break;
+              case " ":
+                  document.getElementById("playOrPause").click();
+                  break;
+          }
+        }
+        else { //new player
+          switch (key) { // change to event.key to key to use the above variable
             case "ArrowLeft":
                 // Left pressed
-                updateSteps("SX");
+                myVideoHelper.currentTime = myVideoHelper.currentTime - 15;
                 break;
             case "ArrowRight":
                 // Right pressed
-                updateSteps("DX");
+                myVideoHelper.currentTime = myVideoHelper.currentTime + 15;
                 break;
             case "ArrowUp":
                 // Up pressed
-                updateSpeed("FASTER");
+                myVideoHelper.playbackRate = myVideoHelper.playbackRate + 0.1;
+                console.log(myVideoHelper.playbackRate)
+                document.getElementsByClassName("speedValue")[0].innerHTML = round(myVideoHelper.playbackRate, 1) + "x";
                 break;
             case "ArrowDown":
                 // Down pressed
-                updateSpeed("SLOWER");
+                myVideoHelper.playbackRate = myVideoHelper.playbackRate - 0.1;
+                console.log(myVideoHelper.playbackRate);
+                document.getElementsByClassName("speedValue")[0].innerHTML = round(myVideoHelper.playbackRate, 1) + "x";
+
                 break;
-            case "m":
-                // Down pressed
-                muteAndUnmute();
-                break;
+
             case " ":
-                document.getElementById("playOrPause").click();
+                playOrPauseElem = document.getElementById("playOrPause")
+                if (myVideoHelper.paused) {
+                    playOrPauseElem.setAttribute('title', 'Pause');
+                    playOrPauseElem.setAttribute('aria-label', 'Pause');
+                    playOrPauseElem.className = 'icon-player-pause';
+                    myVideoHelper.play()
+
+                } else {
+                    playOrPauseElem.setAttribute('title', 'Play');
+                    playOrPauseElem.setAttribute('aria-label', 'Play');
+                    playOrPauseElem.className = 'icon-player-play';
+                    myVideoHelper.pause()
+                }
                 break;
+            }
         }
     });
 
@@ -71,16 +121,22 @@ function round(value, precision) {
 
 injectHelper();
 
-if (window.location.href.includes(".webex.com")) {
+if (window.location.href.includes(".webex.com") || window.location.href.includes("polimi365.sharepoint.com/sites/recordings")) {
     basebar = false;
     var step = 10;
     var sliderBTNw = false;
 
     function updateSteps(desired = "DX") {
+      console.log("updateSteps")
         if (!basebar) {
             try {
+              if(platform == 0){
                 basebar = document.getElementById("baseBar");
                 sliderBTNw = document.getElementsByClassName("el-slider__button-wrapper")[0];
+              } else {
+                basebar = document.getElementsByClassName("od-ScrubBar")[0];
+                sliderBTNw = document.getElementsByClassName("od-ScrubBar-thumb")[0];
+              }
             } catch (e) {
                 console.warn("0", e);
             }
@@ -125,7 +181,7 @@ if (window.location.href.includes(".webex.com")) {
                     if(document.getElementById("settingPopoverID").style.display == "none") {
                         try { document.getElementById("playerSetting").click();	} catch (e) {};
                     }
-                    
+
                 }
 
                 setTimeout(function () {

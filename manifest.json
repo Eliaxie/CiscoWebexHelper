@@ -19,8 +19,9 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "*://*.webex.com/*"
+      "matches":[
+        "*://*.webex.com/*",
+        "*://polimi365.sharepoint.com/sites/recordings/*"
       ],
       "js":[
         "jquery.min.js",
